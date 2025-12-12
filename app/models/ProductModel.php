@@ -51,4 +51,12 @@ class ProductModel {
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$id]);
     }
+
+    public function getTrajetsByDate() {
+		$sql = "SELECT * FROM V_gt_trajet_detaillee";
+		$stmt = $this->app->db()->query($sql);
+		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		
+		return $result;
+	}
 }

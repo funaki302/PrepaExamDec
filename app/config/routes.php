@@ -8,7 +8,7 @@ use flight\net\Router;
 $router->group('', function(Router $router) use ($app) {
     $router->get('/', function() use ($app) {
         $controller = new ProductController($app);
-        $controller->home();
+        $app->render('home' , ['liste' => $controller->getTrajetsByDate() , 'csp_nonce' => Flight::get('csp_nonce')]);
     });
     $router->group('/product', function() use ($router, $app) {
         $router->get('/show-@id', function($id) use ($app) {

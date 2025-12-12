@@ -87,4 +87,8 @@ class ProductController {
 
         return $currentImage;
     }
+
+    public function getTrajetsByDate(){
+        return $this->model->getTrajetsByDate(); 
+    }
 }
