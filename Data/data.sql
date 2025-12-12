@@ -1,6 +1,8 @@
 -- Schema MySQL pour l'application
 -- Contient les tables : chauffeur, vehicule, recette, carburant, salaire, trajet
 -- et des données de test pour développement
+create database if not exists gestion_transport;
+use gestion_transport;
 
 SET FOREIGN_KEY_CHECKS=0;
 
@@ -14,7 +16,7 @@ DROP TABLE IF EXISTS chauffeur;
 SET FOREIGN_KEY_CHECKS=1;
 
 -- Table chauffeur
-CREATE TABLE IF NOT EXISTS chauffeur (
+CREATE TABLE IF NOT EXISTS gt_chauffeur (
 	idChauffeur INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	nom VARCHAR(80) NOT NULL,
 	prenom VARCHAR(80) NOT NULL,
@@ -26,7 +28,7 @@ CREATE TABLE IF NOT EXISTS chauffeur (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Table vehicule
-CREATE TABLE IF NOT EXISTS vehicule (
+CREATE TABLE IF NOT EXISTS gt_vehicule (
 	idVehicule INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	marque VARCHAR(80) NOT NULL,
 	modele VARCHAR(80) DEFAULT NULL,
@@ -34,7 +36,7 @@ CREATE TABLE IF NOT EXISTS vehicule (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Table recette
-CREATE TABLE IF NOT EXISTS recette (
+CREATE TABLE IF NOT EXISTS gt_recette (
 	idRecette INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	montant DECIMAL(10,2) NOT NULL,
 	date DATE NOT NULL,
@@ -42,7 +44,7 @@ CREATE TABLE IF NOT EXISTS recette (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Table carburant
-CREATE TABLE IF NOT EXISTS carburant (
+CREATE TABLE IF NOT EXISTS gt_carburant (
 	idCarburant INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	idVehicule INT UNSIGNED NOT NULL,
 	prixLitre DECIMAL(10,3) NOT NULL,
@@ -54,7 +56,7 @@ CREATE TABLE IF NOT EXISTS carburant (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Table salaire
-CREATE TABLE IF NOT EXISTS salaire (
+CREATE TABLE IF NOT EXISTS gt_salaire (
 	idSalaire INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	montant DECIMAL(10,2) NOT NULL,
 	datePaiement DATE NOT NULL,
@@ -65,7 +67,7 @@ CREATE TABLE IF NOT EXISTS salaire (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Table trajet
-CREATE TABLE IF NOT EXISTS trajet (
+CREATE TABLE IF NOT EXISTS gt_trajet (
 	idTrajet INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	dateHeureDebut DATETIME NOT NULL,
 	dateHeureFin DATETIME DEFAULT NULL,
