@@ -93,13 +93,7 @@ INSERT INTO gt_vehicule (marque, modele) VALUES
 ('Peugeot', '208');
 
 -- Recettes
-(montant, date) VALUES
-(150.50, '2025-12-01'),
-(230.00, '2025-12-02');
--- corrected table name
 INSERT INTO gt_recette (montant, date) VALUES
-(150.50, '2025-12-01'),
-(230.00, '2025-12-02');
 (150.50, '2025-12-01'),
 (230.00, '2025-12-02');
 
@@ -117,8 +111,6 @@ INSERT INTO gt_salaire (montant, datePaiement, idChauffeur) VALUES
 -- Trajets
 INSERT INTO gt_trajet (dateHeureDebut, dateHeureFin, distance, idChauffeur, idVehicule, idRecette, idCarburant, pointDepart, pointArrivee) VALUES
 ('2025-12-03 08:00:00','2025-12-03 10:30:00',120.50,1,1,1,1,'Paris, Gare du Nord','Rouen, Centre'),
-('2025-12-04 09:15:00','2025-12-04 11:00:00',85.75,2,2,2,2,'Lyon, Part-Dieu','Grenoble, Centre'),
-('2025-12-05 07:45:00',NULL,0.00,3,1,NULL,NULL,'Marseille, Vieux-Port','Aubagne, Gare');
-
+('2025-12-04 09:15:00','2025-12-04 11:00:00',85.75,2,2,2,2,'Lyon, Part-Dieu','Grenoble, Centre');
 -- Fin du script
 
