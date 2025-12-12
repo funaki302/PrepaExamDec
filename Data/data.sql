@@ -1,0 +1,125 @@
+-- Schema MySQL pour l'application
+-- Contient les tables : chauffeur, vehicule, recette, carburant, salaire, trajet
+-- et des données de test pour développement
+
+SET FOREIGN_KEY_CHECKS=0;
+
+DROP TABLE IF EXISTS trajet;
+DROP TABLE IF EXISTS salaire;
+DROP TABLE IF EXISTS carburant;
+DROP TABLE IF EXISTS recette;
+DROP TABLE IF EXISTS vehicule;
+DROP TABLE IF EXISTS chauffeur;
+
+SET FOREIGN_KEY_CHECKS=1;
+
+-- Table chauffeur
+CREATE TABLE IF NOT EXISTS chauffeur (
+	idChauffeur INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	nom VARCHAR(80) NOT NULL,
+	prenom VARCHAR(80) NOT NULL,
+	telephone VARCHAR(30) DEFAULT NULL,
+	adresse VARCHAR(255) DEFAULT NULL,
+	email VARCHAR(150) DEFAULT NULL,
+	salaire DECIMAL(10,2) DEFAULT NULL,
+	PRIMARY KEY (idChauffeur)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Table vehicule
+CREATE TABLE IF NOT EXISTS vehicule (
+	idVehicule INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	marque VARCHAR(80) NOT NULL,
+	modele VARCHAR(80) DEFAULT NULL,
+	PRIMARY KEY (idVehicule)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Table recette
+CREATE TABLE IF NOT EXISTS recette (
+	idRecette INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	montant DECIMAL(10,2) NOT NULL,
+	date DATE NOT NULL,
+	PRIMARY KEY (idRecette)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Table carburant
+CREATE TABLE IF NOT EXISTS carburant (
+	idCarburant INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	idVehicule INT UNSIGNED NOT NULL,
+	prixLitre DECIMAL(10,3) NOT NULL,
+	quantite DECIMAL(10,3) NOT NULL,
+	dateAchat DATE NOT NULL,
+	PRIMARY KEY (idCarburant),
+	KEY fk_carburant_vehicule (idVehicule),
+	CONSTRAINT fk_carburant_vehicule FOREIGN KEY (idVehicule) REFERENCES vehicule(idVehicule) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Table salaire
+CREATE TABLE IF NOT EXISTS salaire (
+	idSalaire INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	montant DECIMAL(10,2) NOT NULL,
+	datePaiement DATE NOT NULL,
+	idChauffeur INT UNSIGNED NOT NULL,
+	PRIMARY KEY (idSalaire),
+	KEY fk_salaire_chauffeur (idChauffeur),
+	CONSTRAINT fk_salaire_chauffeur FOREIGN KEY (idChauffeur) REFERENCES chauffeur(idChauffeur) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Table trajet
+CREATE TABLE IF NOT EXISTS trajet (
+	idTrajet INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	dateHeureDebut DATETIME NOT NULL,
+	dateHeureFin DATETIME DEFAULT NULL,
+	distance DECIMAL(10,2) DEFAULT NULL,
+	idChauffeur INT UNSIGNED DEFAULT NULL,
+	idVehicule INT UNSIGNED DEFAULT NULL,
+	idRecette INT UNSIGNED DEFAULT NULL,
+	idCarburant INT UNSIGNED DEFAULT NULL,
+	pointDepart VARCHAR(255) DEFAULT NULL,
+	pointArrivee VARCHAR(255) DEFAULT NULL,
+	PRIMARY KEY (idTrajet),
+	KEY fk_trajet_chauffeur (idChauffeur),
+	KEY fk_trajet_vehicule (idVehicule),
+	KEY fk_trajet_recette (idRecette),
+	KEY fk_trajet_carburant (idCarburant),
+	CONSTRAINT fk_trajet_chauffeur FOREIGN KEY (idChauffeur) REFERENCES chauffeur(idChauffeur) ON DELETE SET NULL ON UPDATE CASCADE,
+	CONSTRAINT fk_trajet_vehicule FOREIGN KEY (idVehicule) REFERENCES vehicule(idVehicule) ON DELETE SET NULL ON UPDATE CASCADE,
+	CONSTRAINT fk_trajet_recette FOREIGN KEY (idRecette) REFERENCES recette(idRecette) ON DELETE SET NULL ON UPDATE CASCADE,
+	CONSTRAINT fk_trajet_carburant FOREIGN KEY (idCarburant) REFERENCES carburant(idCarburant) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- DONNEES DE TEST
+-- Chauffeurs
+INSERT INTO chauffeur (nom, prenom, telephone, adresse, email, salaire) VALUES
+('Dupont', 'Pierre', '0612345678', '12 rue de la République, Paris', 'p.dupont@example.com', 2200.00),
+('Martin', 'Sophie', '0698765432', '5 avenue Victor Hugo, Lyon', 's.martin@example.com', 2400.00),
+('Nguyen', 'Thi', '0678954321', '3 rue des Fleurs, Marseille', 't.nguyen@example.com', 2000.00);
+
+-- Vehicules
+INSERT INTO vehicule (marque, modele) VALUES
+('Renault', 'Clio'),
+('Peugeot', '208');
+
+-- Recettes
+INSERT INTO recette (montant, date) VALUES
+(150.50, '2025-12-01'),
+(230.00, '2025-12-02');
+
+-- Carburants
+INSERT INTO carburant (idVehicule, prixLitre, quantite, dateAchat) VALUES
+(1, 1.789, 40.00, '2025-11-28'),
+(2, 1.759, 50.00, '2025-11-29');
+
+-- Salaires
+INSERT INTO salaire (montant, datePaiement, idChauffeur) VALUES
+(2200.00, '2025-11-30', 1),
+(2400.00, '2025-11-30', 2),
+(2000.00, '2025-11-30', 3);
+
+-- Trajets
+INSERT INTO trajet (dateHeureDebut, dateHeureFin, distance, idChauffeur, idVehicule, idRecette, idCarburant, pointDepart, pointArrivee) VALUES
+('2025-12-03 08:00:00','2025-12-03 10:30:00',120.50,1,1,1,1,'Paris, Gare du Nord','Rouen, Centre'),
+('2025-12-04 09:15:00','2025-12-04 11:00:00',85.75,2,2,2,2,'Lyon, Part-Dieu','Grenoble, Centre'),
+('2025-12-05 07:45:00',NULL,0.00,3,1,NULL,NULL,'Marseille, Vieux-Port','Aubagne, Gare');
+
+-- Fin du script
+
