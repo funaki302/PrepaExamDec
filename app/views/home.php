@@ -1,3 +1,7 @@
+<?php 
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -15,41 +19,49 @@
     <main class="container">
         <h1>Bienvenue sur notre boutique</h1>
         <section class="product-list">
-            <?php foreach($products as $p){ ?>
-                <article class="product-card">
-                    <img src="/images/<?= $p['p_image'] ?>" alt="<?= $p['p_name'] ?>">
-                    <div class="details">
-                        <div class="d-flex justify-content-end gap-3 align-items-center px-3 py-2">
-                            <a href="product/show-<?= $p['id'] ?>"><i class="bi bi-eye-fill text-dark"></i></a>
-                            <a href="/update-<?=  $p['id'] ?>"><i class="bi bi-pencil-fill text-dark"></i></a>
-                            <button type="button" class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#deleteModal<?= $p['id'] ?>">
-                                <i class="bi bi-trash3-fill text-danger"></i>
-                            </button>
-                        </div>
-                        <h2><?= $p['p_name'] ?></h2>
-                        <p>Prix : <?= number_format($p['p_price'], 0, ',', ' ') ?> Ar</p>                    
-                    </div>
-                </article>
-
-                <div class="modal fade" id="deleteModal<?= $p['id'] ?>" tabindex="-1" aria-labelledby="deleteModalLabel<?= $p['id'] ?>" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="deleteModalLabel<?= $p['id'] ?>">Confirmer la suppression</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
-                    </div>
-                    <div class="modal-body">
-                        Êtes-vous sûr de vouloir supprimer le produit <strong><?= htmlspecialchars($p['p_name']) ?></strong> ?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                        <a href="/product/delete-<?= $p['id'] ?>" class="btn btn-danger">Supprimer</a>
-                    </div>
-                    </div>
+            <?php if (isset($liste) && is_array($liste) && count($liste) > 0): ?>
+                <h2>Liste des trajets</h2>
+                <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Début</th>
+                            <th>Fin</th>
+                            <th>Distance</th>
+                            <th>Départ</th>
+                            <th>Arrivée</th>
+                            <th>Chauffeur</th>
+                            <th>Téléphone</th>
+                            <th>Email</th>
+                            <th>Véhicule</th>
+                            <th>Recette</th>
+                            <th>Date Recette</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($liste as $row): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($row['idTrajet'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($row['dateHeureDebut'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($row['dateHeureFin'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($row['distance'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($row['pointDepart'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($row['pointArrivee'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($row['chauffeur_nom_complet'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($row['chauffeur_telephone'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($row['chauffeur_email'] ?? '') ?></td>
+                            <td><?= htmlspecialchars((($row['vehicule_marque'] ?? '') . ' ' . ($row['vehicule_modele'] ?? '')) ) ?></td>
+                            <td><?= htmlspecialchars($row['recette_montant'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($row['recette_date'] ?? '') ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
                 </div>
-                </div>
-
-            <?php } ?>
+            <?php else: ?>
+                <p>Aucun trajet trouvé.</p>
+            <?php endif; ?>
         </section>
     </main>
 
