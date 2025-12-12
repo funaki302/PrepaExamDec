@@ -9,7 +9,7 @@
 
 - [] Welcome.php :
     [] Afficher la liste de trajet avec les informations du chauffeur et du vehicule par jour.
-       - [] fonction getTrajetsByDate($date)
+       - [] fonction getTrajetsByDate()
        -> creation de la vue trajet_detaillee pour faciliter la recuperation des donnees.       
           -> union entre les tables trajet, chauffeur et vehicule et recette.
 

@@ -13,10 +13,10 @@ class ApiExampleController {
 		$this->app = $app;
 	}
 
-	public function getAllProduits() {
-		// You could actually pull data from the database if you had one set up
-		// $users = $this->app->db()->fetchAll("SELECT * FROM users");
-		$produitModel = new ProduitModel();
+	public function getTrajetsByDate() {
+		$sql = "SELECT * FROM trajet_detaillee";
+		$stmt = $this->app->db()->query($sql);
+		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		$produits = $produitModel->getAllProduits();
 
 		// You actually could overwrite the json() method if you just wanted to
