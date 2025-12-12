@@ -1,3 +1,5 @@
+
+
 - [] Creation Base de donne Mysql:
      [] table :
       -> [] trajet (idTrajet ,dateHeureDebut , dateHeureFin, distance, idChauffeur, idVehicule, idRecette, idCarburant, String pointDepart,String pointArrivee)
@@ -6,6 +8,10 @@
       -> [] recette (idRecette , montant , date)
       -> [] salaire (idSalaire , montant , datePaiement, idChauffeur)
       -> [] carburant (idCarburant ,idVehicule , prixLitre , quantite , dateAchat)
+
+- [] connection pour se connecterr a la base de donne Mysql
+   - [] config/database.php :
+      [] fonction connect() : connexion a la base de donne Mysql avec PDO.
 
 - [] Welcome.php :
     [] Afficher la liste de trajet avec les informations du chauffeur et du vehicule par jour.
