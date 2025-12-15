@@ -57,4 +57,16 @@ class ProductModel {
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 	}
+
+    public function getBeneficeByVehicule() {
+        $sql = "SELECT * FROM V_gt_benefice_par_vehicule";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+	}
+
+    public function getBeneficeByDate() {
+        $sql = "SELECT * FROM V_gt_benefice_par_jour";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+	}
 }
