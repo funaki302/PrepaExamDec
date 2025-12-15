@@ -91,4 +91,12 @@ class ProductController {
     public function getTrajetsByDate(){
         return $this->model->getTrajetsByDate(); 
     }
+
+    public function getBeneficeByVehicule(){
+        return $this->model->getBeneficeByVehicule(); 
+    }
+    
+    public function getBeneficeByDate(){
+        return $this->model->getBeneficeByDate(); 
+    }
 }
