@@ -35,4 +35,15 @@
 
     - [] Amelioration :
     [] Ajouter un nouveau trajet.
+        [] page : ajoutTrajet.php dans view
+           [] formulaire dajout 
+           [] bouton ajouter
+           [] routes.php :
+              -> [] insertion en utilisant une fonction placer dans
+                    controllers/ProductController.php :
+                  -[] function insertTrajet() 
+              
+              -> [] redirection vers Alltrajet.php: qui affiche tout les trajets
+                   en utilisant la function getAllTrajet que lon va encore cree dans                 
+                    controllers/ProductController.php :
   
